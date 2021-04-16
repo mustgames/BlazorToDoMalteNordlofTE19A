@@ -18,13 +18,13 @@ jobs:
       run: dotnet test
 
     - name: Publish app
-      run: dotnet publish Smorsoft-new.csproj -c Release
+      run: dotnet publish ${{ env.NAME }}.csproj -c Release
       
     - name: Rewrite base href
       uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
       with:
         html_path: ${{ env.PUBLISH_DIR }}/index.html
-        base_href: /${{ env.PUBLISH_DIR }}.csproj/
+        base_href: /${{ env.NAME }}.csproj/
       
     - name: GitHub Pages action
       if: ${{ github.ref == 'refs/heads/master' }} # Publish only when the push is on master
