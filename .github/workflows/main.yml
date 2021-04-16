@@ -26,7 +26,13 @@ jobs:
       with:
         html_path: ${{ env.PUBLISH_DIR }}/index.html
         base_href: /${{ env.REPO}}/
-      
+        
+    # Generate the website
+    - name: Publish
+      run: |
+        cp wwwroot/index.html wwwroot/404.html
+        dotnet publish ${{ env.NAME}}.csproj --configuration Release
+
     - name: GitHub Pages action
       if: ${{ github.ref == 'refs/heads/master' }} # Publish only when the push is on master
       uses: peaceiris/actions-gh-pages@v3.6.1
