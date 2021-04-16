@@ -2,6 +2,7 @@ name: DeployToGitHubPages
 env:
   PUBLISH_DIR: bin/Release/net5.0/publish/wwwroot
   NAME: blzor8
+  REPO: BlazorToDoMalteNordlofTE19A
 
 # Controls when the action will run
 on:
@@ -24,7 +25,7 @@ jobs:
       uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
       with:
         html_path: ${{ env.PUBLISH_DIR }}/index.html
-        base_href: /${{ env.NAME }}.csproj/
+        base_href: /${{ env.REPO}}/
       
     - name: GitHub Pages action
       if: ${{ github.ref == 'refs/heads/master' }} # Publish only when the push is on master
