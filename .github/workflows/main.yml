@@ -30,6 +30,9 @@ jobs:
         html_path: ${{ env.PUBLISH_DIR }}/index.html
         base_href: /${{ env.REPO}}/
         
+    - name: Add .nojekyll file
+      run: touch ${{ env.PUBLISH_DIR }}/.nojekyll
+        
     
 
     - name: GitHub Pages action
