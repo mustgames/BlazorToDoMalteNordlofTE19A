@@ -18,8 +18,11 @@ jobs:
     - name: Test .Net
       run: dotnet test
 
-    - name: Publish app
-      run: dotnet publish ${{ env.NAME }}.csproj -c Release
+  # Generate the website
+    - name: Publish
+      run: |
+        cp wwwroot/index.html wwwroot/404.html
+        dotnet publish ${{ env.NAME}}.csproj --configuration Release
       
     - name: Rewrite base href
       uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
@@ -27,11 +30,7 @@ jobs:
         html_path: ${{ env.PUBLISH_DIR }}/index.html
         base_href: /${{ env.REPO}}/
         
-    # Generate the website
-    - name: Publish
-      run: |
-        cp wwwroot/index.html wwwroot/404.html
-        dotnet publish ${{ env.NAME}}.csproj --configuration Release
+    
 
     - name: GitHub Pages action
       if: ${{ github.ref == 'refs/heads/master' }} # Publish only when the push is on master
